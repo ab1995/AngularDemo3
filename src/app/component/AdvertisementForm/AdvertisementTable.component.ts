@@ -1,24 +1,39 @@
 import { Component,NgModule, EventEmitter, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {AdService} from '../../services/AdvertisementService'
+
 
 
 @Component({
     selector:"adtable",
     templateUrl: './AdvertisementTable.component.html',
-    inputs:['ads'],
-    outputs:['deleteAdEvent']
+    //outputs:['deleteAdEvent']
 })
 
 export class AdvertisementTable {
+
+
+    ads: Array<{ name:String, category:String, description:String }> =[];//this.adService.getAdArray();
    
-    ads: Array<{ name:String, category:String, description:String }> = [];
-    public deleteAdEvent=new EventEmitter<{ name:String, category:String, description:String }[]>();
+    constructor(private adService:AdService)
+    {
+      //  this.getAdArrayFromService();
+        //this.ads=this.adService.getAdArray();
+    }
+    
+    
+    //public deleteAdEvent=new EventEmitter<{ name:String, category:String, description:String }[]>();
     
     deleteAd(ad:{ name:String, category:String, description:String }){
-        let index=this.ads.indexOf(ad);
-        this.ads.splice(index,1);
-        this.deleteAdEvent.emit(this.ads);
+        this.adService.deleteAd(ad);
+       // this.deleteAdEvent.emit(this.ads);
     }     
+
+    getAdArrayFromService()
+    {
+        //this.ads=this.adService.getAdArray();
+        return this.adService.getAdArray();
+    }
 }
 
 @Pipe({

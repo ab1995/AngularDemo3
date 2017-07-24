@@ -12,7 +12,7 @@
             <th>Action2</th>
         </thead>
         <tbody>
-            <tr *ngFor="let ad of ads | FilterPipe:searchText.value">
+            <tr *ngFor="let ad of getAdArrayFromService() | FilterPipe:searchText.value">
                 <td>{{ad.name}}</td>
                 <td>{{ad.category}}</td>
                 <td>{{ad.description}}</td>
